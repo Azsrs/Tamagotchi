@@ -2,9 +2,11 @@
 
 Kompis tamagotchi = new Kompis();
 
+tamagotchi.Name = "";
+while (tamagotchi.Name == ""){
 Console.WriteLine("Tjena polarn! vad ska din kompis heta?");
 tamagotchi.Name = Console.ReadLine();
-
+}
 
 while (tamagotchi.GetAlive())
 {
@@ -43,6 +45,7 @@ while (tamagotchi.GetAlive())
     {
         tamagotchi.Tick();
     }
+    tamagotchi.GetAlive();
     
 }
 

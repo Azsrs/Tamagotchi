@@ -14,33 +14,45 @@ public class Kompis
     {
         Console.WriteLine("omnomnom");
         Console.ReadLine();
-        _hunger -= 10;
+        if (_hunger < 100)
+        {
+            _hunger -= 10;
+        }
+        else Console.WriteLine($"{Name}: Jag är mätt brä");
     }
     public void Hi()
     {
         int OrdSlump = Random.Shared.Next(_words.Count);
         Console.WriteLine($"{Name}: {_words[OrdSlump]}");
         Console.ReadLine();
+        ReduceBoredom();
     }
     public void Teach(string word)
     {
         _words.Add(word);
-        Tick();            
+        Tick();
+        if (_boredom < 100)
+        {
+            _boredom -= 10;
+        }
+        else Console.WriteLine($"{Name}: Jag har redan kul brä");
+        
+
     }
     public void Tick()
     {
         _hunger += 5;
         _boredom += 5;
     }
-    
-    
+
+
     public void PrintStats()
     {
         Console.WriteLine($"Hunger:{_hunger}\nBoredom:{_boredom}");
         Console.ReadLine();
     }
-   
-   
+
+
     public bool GetAlive()
     {
         if (_hunger == 100 || _boredom == 100)
@@ -52,7 +64,7 @@ public class Kompis
     }
     private void ReduceBoredom()
     {
-
+        _boredom -= 10;
     }
 
 
