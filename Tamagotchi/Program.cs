@@ -1,19 +1,37 @@
-﻿using Tamagotchi;
+﻿
+using Tamagotchi;
+using System.Text.Json;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 Kompis tamagotchi = new Kompis();
 
+string LaddaSave = AskIfLoad();
+
+TakeAnswerForLoad(LaddaSave);
+
 tamagotchi.Name = "";
-while (tamagotchi.Name == ""){
-Console.WriteLine("Tjena polarn! vad ska din kompis heta?");
-tamagotchi.Name = Console.ReadLine();
+while (tamagotchi.Name == "")
+{
+    Console.WriteLine("Tjena polarn! vad ska din kompis heta?");
+    tamagotchi.Name = Console.ReadLine();
 }
+
+
+string t = JsonSerializer.Serialize(tamagotchi);
+
+Console.WriteLine(t);
+Console.ReadLine();
+
+
+int y = tamagotchi.Hunger;
 
 while (tamagotchi.GetAlive())
 {
     bool ParseWorks = false;
     int DoSomethingInt = 1;
 
-
+    //Ta emot spelarval och neka felaktiga svar
     while (!ParseWorks || DoSomethingInt > 5 && DoSomethingInt < 1)
     {
         Console.WriteLine("Vad vill du?\n1.Stats\n2.Mata\n3.Lär ord\n4.Tala\n5.Ingenting\n(svara i siffror)");
@@ -46,99 +64,41 @@ while (tamagotchi.GetAlive())
         tamagotchi.Tick();
     }
     tamagotchi.GetAlive();
-    
+
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//Om tamagochin är död, visa död meddelande och stäng
+if (!tamagotchi.GetAlive())
+{
+    Console.WriteLine($"{tamagotchi.Name} är död och det är ditt fel");
+    Console.ReadLine();
+}
+
+static string AskIfLoad()
+{
+    Console.WriteLine("Vill du ladda en save bror? [Y/N]");
+    string LaddaSave = Console.ReadLine().ToLower();
+    while (LaddaSave != "y" && LaddaSave != "n")
+    {
+        Console.WriteLine("Vill du ladda en save bror? [Y/N]");
+        LaddaSave = Console.ReadLine().ToLower();
+    }
+    return LaddaSave;
+}
+
+static void TakeAnswerForLoad(string LaddaSave)
+{
+    if (LaddaSave == "y")
+    {
+        if (File.Exists(@"save.txt"))
+        {
+            //LADDA SAVE HÄR 
+        }
+        else
+        {
+            Console.WriteLine("DU HAR INGEN SAVE PAJAS!!! VI BÖRJAR OM FRÅN BÖRJAN");
+            Console.ReadLine();
+        }
+    }
+    if (LaddaSave == "n") { }
+}

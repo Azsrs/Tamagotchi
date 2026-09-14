@@ -4,19 +4,21 @@ namespace Tamagotchi;
 
 public class Kompis
 {
-    private int _hunger = 0;
+    public int Hunger { get; set; }
+
     private int _boredom = 0;
     private List<string> _words = [];
     private bool _isAlive;
-    public string Name;
+    public string Name { get; set; }
+
 
     public void Feed()
     {
         Console.WriteLine("omnomnom");
         Console.ReadLine();
-        if (_hunger < 100)
+        if (Hunger < 100)
         {
-            _hunger -= 10;
+            Hunger -= 10;
         }
         else Console.WriteLine($"{Name}: Jag är mätt brä");
     }
@@ -36,26 +38,26 @@ public class Kompis
             _boredom -= 10;
         }
         else Console.WriteLine($"{Name}: Jag har redan kul brä");
-        
+
 
     }
     public void Tick()
     {
-        _hunger += 5;
+        Hunger += 5;
         _boredom += 5;
     }
 
 
     public void PrintStats()
     {
-        Console.WriteLine($"Hunger:{_hunger}\nBoredom:{_boredom}");
+        Console.WriteLine($"Hunger:{Hunger}\nBoredom:{_boredom}");
         Console.ReadLine();
     }
 
 
     public bool GetAlive()
     {
-        if (_hunger == 100 || _boredom == 100)
+        if (Hunger == 100 || _boredom == 100)
         {
             _isAlive = false;
         }
