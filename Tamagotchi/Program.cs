@@ -20,11 +20,9 @@ while (tamagotchi.Name == "")
 
 string t = JsonSerializer.Serialize(tamagotchi);
 
-Console.WriteLine(t);
-Console.ReadLine();
+MakeSave();
 
 
-int y = tamagotchi.Hunger;
 
 while (tamagotchi.GetAlive())
 {
@@ -101,4 +99,17 @@ static void TakeAnswerForLoad(string LaddaSave)
         }
     }
     if (LaddaSave == "n") { }
+}
+
+ void MakeSave()
+{
+    if (!Directory.Exists(@"Savegames"))
+    {
+        Directory.CreateDirectory(@"Savegames");
+    }
+if (File.Exists(@"Savegames\Save.txt"));
+    var a = File.Create(@"Savegames\Save.txt");
+    a.Close();
+    string SaveSerialized = JsonSerializer.Serialize<Kompis>(tamagotchi);
+    File.WriteAllText(@"Savegames\Save.txt", SaveSerialized);
 }
