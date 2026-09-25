@@ -101,15 +101,49 @@ static void TakeAnswerForLoad(string LaddaSave)
     if (LaddaSave == "n") { }
 }
 
- void MakeSave()
+void MakeSave()
 {
     if (!Directory.Exists(@"Savegames"))
     {
         Directory.CreateDirectory(@"Savegames");
     }
-if (File.Exists(@"Savegames\Save.txt"));
+    if (File.Exists(@"Savegames\Save.txt"))
+    {
+        YesOrNo("Du har redan en vän... vill du byta ut den?",
+        () =>
+        {
+            
+        }
+        ,
+        () => { Console.WriteLine("okej skit i då"); }
+        );
+
+    }
     var a = File.Create(@"Savegames\Save.txt");
     a.Close();
     string SaveSerialized = JsonSerializer.Serialize<Kompis>(tamagotchi);
     File.WriteAllText(@"Savegames\Save.txt", SaveSerialized);
+
 }
+
+
+static void YesOrNo(string question, Action yes, Action no)
+{
+    Console.WriteLine(question);
+    string svar = Console.ReadLine().ToLower();
+
+    while (svar != "y" && svar != "n")
+    {
+        Console.WriteLine(question);
+        svar = Console.ReadLine();
+    }
+    if (svar == "y")
+    {
+        yes();
+    }
+    else
+    {
+        no();
+    }
+}
+
